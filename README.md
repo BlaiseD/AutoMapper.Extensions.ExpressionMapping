@@ -81,7 +81,7 @@ The methods below map the DTO query expresions to the equivalent data query expr
                 query = query.Where(f);
 
             if (includes != null)
-                query = includes.Select(i => i.Compile()).Aggregate(query, (list, next) => query = next(query));
+                query = includes.Select(i => i.Compile()).Aggregate(query, (list, next) => list = next(list));
 
             //Call the store
             ICollection<TData> result = mappedQueryFunc != null ? await mappedQueryFunc(query).ToListAsync() : await query.ToListAsync();
